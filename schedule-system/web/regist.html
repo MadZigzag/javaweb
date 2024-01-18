@@ -63,7 +63,7 @@
             *       后端响应回来的信息应当有一个统一的格式，前后端共同遵守
             *       响应一个JSON串
             *
-            * 3. 校验不通过，无法组织表单提交的问题
+            * 3. 校验不通过，无法组织表单提交的问题 - 未来使用VUE axios 结合promise处理
             *
             *
             * */
@@ -77,6 +77,7 @@
                     var result = JSON.parse(request.responseText)
                     if (result.code != 200) {
                         usernameMsgSpan.innerText="不可用"
+                        return false
                     }
                 }
             }
