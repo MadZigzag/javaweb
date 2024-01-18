@@ -30,6 +30,29 @@ public class SysUserController extends BaseController {
     private SysUserService userService = new SysUserServiceImpl();
 
     /**
+     * 注册时，接收要注册的用户名，校验用户名是否被占用的业务接口
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
+    protected void checkUsernameUsed(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // 接收用户名
+        String username = req.getParameter("username");
+
+        // 调用服务层业务处理方法查询该用户名是否有对应的用户
+        SysUser sysUser = userService.findByUsername(username);
+
+        // 如果有，响应已占用
+        // 如果没有，响应可用
+        String info = "可用";
+        if (sysUser != null) {
+            info = "已占用";
+        }
+        resp.getWriter().write(info);
+    }
+
+    /**
      * 接收用户登录请求，完成登录的业务接口
      * @param req
      * @param resp
